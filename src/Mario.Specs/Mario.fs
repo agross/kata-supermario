@@ -9,11 +9,11 @@ let iteration1 =
     testCase "starts small" <| fun _ ->
       Expect.equal player.size Small ""
 
-    testCase "dies when hit" <| fun _ ->
-      let subject =
-        player
-        |> hit
-      Expect.equal subject.alive false ""
+    // testCase "dies when hit" <| fun _ ->
+    //   let subject =
+    //     player
+    //     |> hit
+    //   Expect.equal subject.hearts Dead ""
   ]
 
 [<Tests>]
@@ -40,20 +40,24 @@ let iteration2 =
       Expect.equal subject.bag None ""
       Expect.equal subject.size Small ""
   ]
-      let subject = pickupMushroom player
-      Expect.equal subject.bag (Some Mushroom) ""
 
-    testCase "carries maximum of one mushroom" <| fun _ ->
-      let subject =
-        pickupMushroom player
-        |> pickupMushroom
-      Expect.equal subject.bag (Some Mushroom) ""
+[<Tests>]
+let iteration3 =
+  testList "lifes" [
+    testCase "starts with 3 lifes" <| fun _ ->
+      Expect.equal player.hearts (Lifes 3) ""
 
-    testCase "loses mushroom and becomes small when hit" <| fun _ ->
+    testCase "loses 1 life when dying" <| fun _ ->
       let subject =
         player
-        |> pickupMushroom
         |> hit
-      Expect.equal subject.bag None ""
-      Expect.equal subject.size Small ""
+      Expect.equal subject.hearts (Lifes 2) ""
+
+    testCase "dead after losing 3 lifes" <| fun _ ->
+      let subject =
+        player
+        |> hit
+        |> hit
+        |> hit
+      Expect.equal subject.hearts Dead ""
   ]
