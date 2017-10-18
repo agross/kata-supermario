@@ -1,0 +1,54 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F860486D-CECA-44D7-B3C0-F05FBD6C3CAD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Mario", "src\Mario\Mario.fsproj", "{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Mario.Specs", "src\Mario.Specs\Mario.Specs.fsproj", "{2DB7672D-DE6B-443B-AC19-43A9A2655D38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|x64.ActiveCfg = Debug|x64
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|x64.Build.0 = Debug|x64
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|x86.ActiveCfg = Debug|x86
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Debug|x86.Build.0 = Debug|x86
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|x64.ActiveCfg = Release|x64
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|x64.Build.0 = Release|x64
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|x86.ActiveCfg = Release|x86
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18}.Release|x86.Build.0 = Release|x86
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|x64.ActiveCfg = Debug|x64
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|x64.Build.0 = Debug|x64
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|x86.ActiveCfg = Debug|x86
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Debug|x86.Build.0 = Debug|x86
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|x64.ActiveCfg = Release|x64
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|x64.Build.0 = Release|x64
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|x86.ActiveCfg = Release|x86
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EFA2DA12-E021-463A-BBFA-EFCD1BA1DD18} = {F860486D-CECA-44D7-B3C0-F05FBD6C3CAD}
+		{2DB7672D-DE6B-443B-AC19-43A9A2655D38} = {F860486D-CECA-44D7-B3C0-F05FBD6C3CAD}
+	EndGlobalSection
+EndGlobal
