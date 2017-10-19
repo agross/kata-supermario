@@ -61,3 +61,22 @@ let iteration3 =
         |> hit
       Expect.equal subject.hearts Dead ""
   ]
+
+[<Tests>]
+let iteration4 =
+  testList "finding lifes" [
+    testCase "finding lifes increments lifespan" <| fun _ ->
+      let subject =
+        player
+        |> findLife
+      Expect.equal subject.hearts (Lifes 4) ""
+
+    testCase "dead Marios can be resurrected finding lifes" <| fun _ ->
+      let subject =
+        player
+        |> hit
+        |> hit
+        |> hit
+        |> findLife
+      Expect.equal subject.hearts (Lifes 1) "does that even make sense?"
+  ]

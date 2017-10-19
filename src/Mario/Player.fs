@@ -15,6 +15,14 @@ type Hearts =
     | (Lifes l, Lifes r) when (l - r) > 0 ->
       Lifes (l - r)
     | _ -> Dead
+  static member (+) (lhs:Hearts, rhs:Hearts) =
+      match (lhs, rhs) with
+      | (Lifes l, Lifes r) ->
+        Lifes (l + r)
+      | (Dead _, Lifes r) ->
+        Lifes r
+      | _ ->
+        Dead
 
 type SuperMario =
   {
@@ -39,3 +47,6 @@ let hit player =
 
 let pickupMushroom player =
   { player with bag = Some Mushroom }
+
+let findLife player =
+  { player with hearts = player.hearts + (Lifes 1) }
