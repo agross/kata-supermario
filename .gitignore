@@ -1,6 +1,9 @@
+.idea/
 .fake/
 build/
 bin/
 obj/
 packages/
 paket-files/
+
+*.user
