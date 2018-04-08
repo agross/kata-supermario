@@ -1,5 +1,7 @@
 module Player
 
+open System
+
 type Size =
   | Small
   | Large
@@ -30,6 +32,7 @@ type SuperMario =
     hearts : Hearts
     size : Size
     bag : Bag option
+    immortalUntil : DateTime option
   }
 
 let player =
@@ -37,10 +40,13 @@ let player =
     hearts = Lifes 3
     size = Small
     bag = None
+    immortalUntil = None
   }
 
-let hit player =
+let hit hitTime player =
   match player with
+  | { immortalUntil = Some until } when until > hitTime  ->
+    player
   | { size = Size.Large } ->
     { player with size = Size.Small; bag = Some(Mushroom) }
   | { bag = Some _ } ->
@@ -60,3 +66,6 @@ let findLife player =
 
 let findFireFlower player =
   { player with size = Size.Large; bag = None }
+
+let findStar (timeFound : DateTime) player =
+  { player with immortalUntil = Some(timeFound.AddSeconds 2.) }

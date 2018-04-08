@@ -2,6 +2,10 @@ module Mario.Specs
 
 open Expecto
 open Player
+open System
+
+let hitForTesting player =
+  hit DateTime.MaxValue player
 
 [<Tests>]
 let iteration1 =
@@ -12,7 +16,7 @@ let iteration1 =
     // testCase "dies when hit" <| fun _ ->
     //   let subject =
     //     player
-    //     |> hit
+    //     |> hitForTesting
     //   Expect.equal subject.hearts Dead ""
   ]
 
@@ -36,7 +40,7 @@ let iteration2 =
       let subject =
         player
         |> pickupMushroom
-        |> hit
+        |> hitForTesting
       Expect.equal subject.bag None ""
       Expect.equal subject.size Small ""
   ]
@@ -50,15 +54,15 @@ let iteration3 =
     testCase "loses 1 life when dying" <| fun _ ->
       let subject =
         player
-        |> hit
+        |> hitForTesting
       Expect.equal subject.hearts (Lifes 2) ""
 
     testCase "dead after losing 3 lifes" <| fun _ ->
       let subject =
         player
-        |> hit
-        |> hit
-        |> hit
+        |> hitForTesting
+        |> hitForTesting
+        |> hitForTesting
       Expect.equal subject.hearts Dead ""
   ]
 
@@ -74,9 +78,9 @@ let iteration4 =
     testCase "dead Marios can be resurrected finding lifes" <| fun _ ->
       let subject =
         player
-        |> hit
-        |> hit
-        |> hit
+        |> hitForTesting
+        |> hitForTesting
+        |> hitForTesting
         |> findLife
       Expect.equal subject.hearts (Lifes 1) "does that even make sense?"
   ]
@@ -94,7 +98,7 @@ let iteration5 =
       let subject =
         player
         |> findFireFlower
-        |> hit
+        |> hitForTesting
       Expect.equal subject.size Size.Small ""
       Expect.equal subject.bag (Some Mushroom) ""
 
@@ -113,4 +117,34 @@ let iteration5 =
         |> findFireFlower
       Expect.equal subject.size Size.Large ""
       Expect.equal subject.bag None "This is underspecified"
+  ]
+
+let iteration6 = exn // Skipped.
+
+[<Tests>]
+let iteration7 =
+  testList "god mode" [
+    testCase "finding a star makes Mario immortal" <| fun _ ->
+      let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
+      let hitTime = pickupTime
+
+      let subject =
+        player
+        |> findStar pickupTime
+        |> hit hitTime
+        |> hit hitTime
+        |> hit hitTime
+      Expect.equal subject.hearts (Lifes 3) ""
+
+    testCase "after 2 seconds Mario becomes mortal again" <| fun _ ->
+      let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
+      let hitTime = pickupTime.AddSeconds 3.
+
+      let subject =
+        player
+        |> findStar pickupTime
+        |> hit hitTime
+        |> hit hitTime
+        |> hit hitTime
+      Expect.equal subject.hearts Dead ""
   ]
