@@ -80,3 +80,37 @@ let iteration4 =
         |> findLife
       Expect.equal subject.hearts (Lifes 1) "does that even make sense?"
   ]
+
+[<Tests>]
+let iteration5 =
+  testList "finding fire flowers" [
+    testCase "finding a fire flower lets Mario grow" <| fun _ ->
+      let subject =
+        player
+        |> findFireFlower
+      Expect.equal subject.size Size.Large ""
+
+    testCase "a grown Mario hit by an enemy shrinks Mario and yields a mushroom" <| fun _ ->
+      let subject =
+        player
+        |> findFireFlower
+        |> hit
+      Expect.equal subject.size Size.Small ""
+      Expect.equal subject.bag (Some Mushroom) ""
+
+    testCase "a grown Mario finding a mushroom keeps him grown" <| fun _ ->
+      let subject =
+        player
+        |> findFireFlower
+        |> pickupMushroom
+      Expect.equal subject.size Size.Large ""
+      Expect.equal subject.bag None "This is underspecified"
+
+    testCase "a Mario carrying a mushroom finding a fire flower drops the mushroom" <| fun _ ->
+      let subject =
+        player
+        |> pickupMushroom
+        |> findFireFlower
+      Expect.equal subject.size Size.Large ""
+      Expect.equal subject.bag None "This is underspecified"
+  ]

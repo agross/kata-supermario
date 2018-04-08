@@ -2,6 +2,7 @@ module Player
 
 type Size =
   | Small
+  | Large
 
 type Bag =
   | Mushroom
@@ -40,13 +41,22 @@ let player =
 
 let hit player =
   match player with
+  | { size = Size.Large } ->
+    { player with size = Size.Small; bag = Some(Mushroom) }
   | { bag = Some _ } ->
     { player with bag = None}
   | _ ->
     { player with hearts = player.hearts - (Lifes 1) }
 
 let pickupMushroom player =
-  { player with bag = Some Mushroom }
+  match player with
+  | { size = Size.Large } ->
+    player
+  | _ ->
+    { player with bag = Some Mushroom }
 
 let findLife player =
   { player with hearts = player.hearts + (Lifes 1) }
+
+let findFireFlower player =
+  { player with size = Size.Large; bag = None }
