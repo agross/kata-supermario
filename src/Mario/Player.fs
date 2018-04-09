@@ -43,16 +43,19 @@ let player =
     immortalUntil = None
   }
 
-let hit hitTime player =
-  match player with
-  | { immortalUntil = Some until } when until > hitTime  ->
-    player
-  | { size = Size.Large } ->
-    { player with size = Size.Small; bag = Some(Mushroom) }
-  | { bag = Some _ } ->
-    { player with bag = None}
-  | _ ->
-    { player with hearts = player.hearts - (Lifes 1) }
+type Hit = DateTime -> SuperMario -> SuperMario
+
+let hit : Hit =
+  fun hitTime player->
+    match player with
+    | { immortalUntil = Some until } when until > hitTime  ->
+      player
+    | { size = Size.Large } ->
+      { player with size = Size.Small; bag = Some(Mushroom) }
+    | { bag = Some _ } ->
+      { player with bag = None}
+    | _ ->
+      { player with hearts = player.hearts - (Lifes 1) }
 
 let pickupMushroom player =
   match player with
