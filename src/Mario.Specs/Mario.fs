@@ -124,8 +124,12 @@ let iteration6 = exn // Skipped.
 [<Tests>]
 let iteration7 =
   testList "god mode" [
+    testCase "starts mortal" <| fun _ ->
+      Expect.isNone player.immortalUntil ""
+
     testCase "finding a star makes Mario immortal" <| fun _ ->
       let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
+      let immortalUntil = pickupTime.AddSeconds 2.
       let hitTime = pickupTime
 
       let subject =
@@ -135,6 +139,8 @@ let iteration7 =
         |> hit hitTime
         |> hit hitTime
       Expect.equal subject.hearts (Lifes 3) ""
+      Expect.isSome subject.immortalUntil ""
+      Expect.equal subject.immortalUntil (Some immortalUntil) ""
 
     testCase "after 2 seconds Mario becomes mortal again" <| fun _ ->
       let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
