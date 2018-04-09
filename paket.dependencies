@@ -2,14 +2,12 @@ source https://www.nuget.org/api/v2
 
 framework: auto-detect
 
-nuget Expecto
 nuget FAKE
 nuget FSharp.Core
-nuget FSharp.NET.Sdk
 
 group Test
   source https://www.nuget.org/api/v2
 
   framework: auto-detect
 
-  nuget Expecto ~> 5
+  nuget Expecto
