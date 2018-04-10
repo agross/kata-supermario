@@ -11,7 +11,7 @@ let hitForTesting player =
 let iteration1 =
   testList "basic life" [
     testCase "starts small" <| fun _ ->
-      Expect.equal player.size Small ""
+      Expect.equal player.State Small ""
 
     // testCase "dies when hit" <| fun _ ->
     //   let subject =
@@ -27,35 +27,35 @@ let iteration2 =
       let subject =
         player
         |> pickupMushroom
-      Expect.equal subject.bag (Some Mushroom) ""
+      Expect.equal subject.Bag (Some Mushroom) ""
 
     testCase "carries maximum of one mushroom" <| fun _ ->
       let subject =
         player
         |> pickupMushroom
         |> pickupMushroom
-      Expect.equal subject.bag (Some Mushroom) ""
+      Expect.equal subject.Bag (Some Mushroom) ""
 
     testCase "loses mushroom and becomes small when hit" <| fun _ ->
       let subject =
         player
         |> pickupMushroom
         |> hitForTesting
-      Expect.equal subject.bag None ""
-      Expect.equal subject.size Small ""
+      Expect.equal subject.Bag None ""
+      Expect.equal subject.State Small ""
   ]
 
 [<Tests>]
 let iteration3 =
   testList "lifes" [
     testCase "starts with 3 lifes" <| fun _ ->
-      Expect.equal player.hearts (Lifes 3) ""
+      Expect.equal player.Hearts (Lifes 3) ""
 
     testCase "loses 1 life when dying" <| fun _ ->
       let subject =
         player
         |> hitForTesting
-      Expect.equal subject.hearts (Lifes 2) ""
+      Expect.equal subject.Hearts (Lifes 2) ""
 
     testCase "dead after losing 3 lifes" <| fun _ ->
       let subject =
@@ -63,7 +63,7 @@ let iteration3 =
         |> hitForTesting
         |> hitForTesting
         |> hitForTesting
-      Expect.equal subject.hearts Dead ""
+      Expect.equal subject.Hearts Dead ""
   ]
 
 [<Tests>]
@@ -73,7 +73,7 @@ let iteration4 =
       let subject =
         player
         |> findLife
-      Expect.equal subject.hearts (Lifes 4) ""
+      Expect.equal subject.Hearts (Lifes 4) ""
 
     testCase "dead Marios can be resurrected finding lifes" <| fun _ ->
       let subject =
@@ -82,7 +82,7 @@ let iteration4 =
         |> hitForTesting
         |> hitForTesting
         |> findLife
-      Expect.equal subject.hearts (Lifes 1) "does that even make sense?"
+      Expect.equal subject.Hearts (Lifes 1) "does that even make sense?"
   ]
 
 [<Tests>]
@@ -92,31 +92,31 @@ let iteration5 =
       let subject =
         player
         |> findFireFlower
-      Expect.equal subject.size Size.Large ""
+      Expect.equal subject.State Large ""
 
     testCase "a grown Mario hit by an enemy shrinks Mario and yields a mushroom" <| fun _ ->
       let subject =
         player
         |> findFireFlower
         |> hitForTesting
-      Expect.equal subject.size Size.Small ""
-      Expect.equal subject.bag (Some Mushroom) ""
+      Expect.equal subject.State Small ""
+      Expect.equal subject.Bag (Some Mushroom) ""
 
     testCase "a grown Mario finding a mushroom keeps him grown" <| fun _ ->
       let subject =
         player
         |> findFireFlower
         |> pickupMushroom
-      Expect.equal subject.size Size.Large ""
-      Expect.equal subject.bag None "This is underspecified"
+      Expect.equal subject.State Large ""
+      Expect.equal subject.Bag (Some Mushroom) "This is underspecified"
 
     testCase "a Mario carrying a mushroom finding a fire flower drops the mushroom" <| fun _ ->
       let subject =
         player
         |> pickupMushroom
         |> findFireFlower
-      Expect.equal subject.size Size.Large ""
-      Expect.equal subject.bag None "This is underspecified"
+      Expect.equal subject.State Large ""
+      Expect.equal subject.Bag None "This is underspecified"
   ]
 
 let iteration6 = exn // Skipped.
@@ -125,7 +125,7 @@ let iteration6 = exn // Skipped.
 let iteration7 =
   testList "god mode" [
     testCase "starts mortal" <| fun _ ->
-      Expect.isNone player.immortalUntil ""
+      Expect.equal player.State Small ""
 
     testCase "finding a star makes Mario immortal" <| fun _ ->
       let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
@@ -138,9 +138,12 @@ let iteration7 =
         |> hit hitTime
         |> hit hitTime
         |> hit hitTime
-      Expect.equal subject.hearts (Lifes 3) ""
-      Expect.isSome subject.immortalUntil ""
-      Expect.equal subject.immortalUntil (Some immortalUntil) ""
+      Expect.equal subject.Hearts (Lifes 3) ""
+
+      match subject.State with
+      | MaybeImmortal i ->
+        Expect.equal i.Until immortalUntil ""
+      | _ -> failtest "Should be immortal"
 
     testCase "after 2 seconds Mario becomes mortal again" <| fun _ ->
       let pickupTime = DateTime(2018, 3, 8, 14, 0, 0)
@@ -152,5 +155,5 @@ let iteration7 =
         |> hit hitTime
         |> hit hitTime
         |> hit hitTime
-      Expect.equal subject.hearts Dead ""
+      Expect.equal subject.Hearts Dead ""
   ]
