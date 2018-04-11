@@ -73,6 +73,23 @@ Target "Watch" (fun _ ->
   spec.Dispose()
 )
 
+Target "Run" (fun _ ->
+  runDotnet "." "restore Mario.sln"
+
+  let unitTestsWatcher = async {
+    let result =
+      ExecProcess (fun info ->
+        info.FileName <- dotnetExePath
+        info.WorkingDirectory <- "src/Mario.Specs"
+        info.Arguments <- sprintf "watch msbuild /target:TestAndRun /property:DotNetHost=%s" dotnetExePath) TimeSpan.MaxValue
+
+    if result <> 0 then failwith (sprintf "Error starting %s watch" dotnetExePath) }
+
+  Async.Parallel [| unitTestsWatcher |]
+  |> Async.RunSynchronously
+  |> ignore
+)
+
 "Clean"
   ==> "InstallDotNetCLI"
   ==> "Restore"

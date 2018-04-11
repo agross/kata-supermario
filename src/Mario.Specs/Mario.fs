@@ -17,7 +17,7 @@ let iteration1 =
     //   let subject =
     //     player
     //     |> hitForTesting
-    //   Expect.equal subject.hearts Dead ""
+    //   Expect.equal subject.Hearts Dead ""
   ]
 
 [<Tests>]
