@@ -55,7 +55,7 @@ Target "Test" (fun _ -> runTests ())
 Target "Watch" (fun _ ->
   use spec =
     !! "src/**/*.fs"
-    |> WatchChanges (fun changes ->
+    |> WatchChanges (fun _changes ->
       try
         notify "FAKE" "Build starting" Notification.Info
         build ()
@@ -63,9 +63,9 @@ Target "Watch" (fun _ ->
           runTests ()
           notify "Expecto" "Successful" Notification.Success
         with
-        | err -> notify "Expecto" "Failed" Notification.Error
+        | _error -> notify "Expecto" "Failed" Notification.Error
       with
-      | err -> notify "FAKE" "Failed" Notification.Error
+      | _error -> notify "FAKE" "Failed" Notification.Error
     )
 
   notify "FAKE" "Started file system watcher" Notification.Info
