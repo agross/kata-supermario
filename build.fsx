@@ -7,8 +7,7 @@ open Notifications
 open System
 
 let buildDir  = "./build/"
-let appReferences = !! "/**/*.fsproj"
-let dotnetcliVersion = "2.0.0"
+let dotnetcliVersion = DotNetCli.GetDotNetSDKVersionFromGlobalJson()
 let mutable dotnetExePath = "dotnet"
 
 let run' timeout cmd args dir =
