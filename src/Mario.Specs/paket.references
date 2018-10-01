@@ -2,4 +2,3 @@ FSharp.Core
 
 group Test
   Expecto
-  Microsoft.DotNet.Watcher.Tools

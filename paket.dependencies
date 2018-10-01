@@ -11,4 +11,3 @@ group Test
   framework: auto-detect
 
   nuget Expecto
-  clitool Microsoft.DotNet.Watcher.Tools
