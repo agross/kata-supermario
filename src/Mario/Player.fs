@@ -7,19 +7,19 @@ type Bag =
 
 type Hearts =
   | Dead
-  | Lifes of int
+  | Lives of int
   with
   static member (-) (lhs:Hearts, rhs:Hearts) =
     match (lhs, rhs) with
-    | (Lifes l, Lifes r) when (l - r) > 0 ->
-      Lifes (l - r)
+    | (Lives l, Lives r) when (l - r) > 0 ->
+      Lives (l - r)
     | _ -> Dead
   static member (+) (lhs:Hearts, rhs:Hearts) =
       match (lhs, rhs) with
-      | (Lifes l, Lifes r) ->
-        Lifes (l + r)
-      | (Dead _, Lifes r) ->
-        Lifes r
+      | (Lives l, Lives r) ->
+        Lives (l + r)
+      | (Dead _, Lives r) ->
+        Lives r
       | _ ->
         Dead
 
@@ -43,7 +43,7 @@ and ImmortalInfo =
 let player =
     {
       State = Small
-      Hearts = Lifes 3
+      Hearts = Lives 3
       Bag = None
     }
 
@@ -61,7 +61,7 @@ let hit : Hit =
       | Some _ ->
         { mario with Bag = None }
       | _ ->
-        { mario with Hearts = mario.Hearts - (Lifes 1) }
+        { mario with Hearts = mario.Hearts - (Lives 1) }
 
 let pickupMushroom (mario : SuperMario) : SuperMario =
   match mario.State with
@@ -73,7 +73,7 @@ let pickupMushroom (mario : SuperMario) : SuperMario =
 let findLife (mario : SuperMario) =
   match mario.State with
   | Small ->
-    { mario with Hearts = mario.Hearts + (Lifes 1) }
+    { mario with Hearts = mario.Hearts + (Lives 1) }
   | _ ->
     mario
 

@@ -47,17 +47,17 @@ let iteration2 =
 
 [<Tests>]
 let iteration3 =
-  testList "lifes" [
-    testCase "starts with 3 lifes" <| fun _ ->
-      Expect.equal player.Hearts (Lifes 3) ""
+  testList "lives" [
+    testCase "starts with 3 lives" <| fun _ ->
+      Expect.equal player.Hearts (Lives 3) ""
 
     testCase "loses 1 life when dying" <| fun _ ->
       let subject =
         player
         |> hitForTesting
-      Expect.equal subject.Hearts (Lifes 2) ""
+      Expect.equal subject.Hearts (Lives 2) ""
 
-    testCase "dead after losing 3 lifes" <| fun _ ->
+    testCase "dead after losing 3 lives" <| fun _ ->
       let subject =
         player
         |> hitForTesting
@@ -68,21 +68,21 @@ let iteration3 =
 
 [<Tests>]
 let iteration4 =
-  testList "finding lifes" [
-    testCase "finding lifes increments lifespan" <| fun _ ->
+  testList "finding lives" [
+    testCase "finding lives increments lifespan" <| fun _ ->
       let subject =
         player
         |> findLife
-      Expect.equal subject.Hearts (Lifes 4) ""
+      Expect.equal subject.Hearts (Lives 4) ""
 
-    testCase "dead Marios can be resurrected finding lifes" <| fun _ ->
+    testCase "dead Marios can be resurrected finding lives" <| fun _ ->
       let subject =
         player
         |> hitForTesting
         |> hitForTesting
         |> hitForTesting
         |> findLife
-      Expect.equal subject.Hearts (Lifes 1) "does that even make sense?"
+      Expect.equal subject.Hearts (Lives 1) "does that even make sense?"
   ]
 
 [<Tests>]
@@ -138,7 +138,7 @@ let iteration7 =
         |> hit hitTime
         |> hit hitTime
         |> hit hitTime
-      Expect.equal subject.Hearts (Lifes 3) ""
+      Expect.equal subject.Hearts (Lives 3) ""
 
       match subject.State with
       | MaybeImmortal i ->
